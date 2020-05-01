@@ -97,6 +97,17 @@ def get_single_result(cid="0"):
         print(now,' get_single_result error. cid: ',cid)
     return rst
 
+def get_single_result_ticker(ticker=""):
+    now=datetime.now().strftime("%d/%m/%Y %H:%M:%S")
+    rst=None
+    try:
+    #query0=db.select([Companies.columns.id]).where(Companies.columns.Symbol==ticker)
+        query=db.select([Ana_Rst]).where(Ana_Rst.columns.cid.in_(db.select([Companies.columns.id]).where(Companies.columns.Symbol==ticker)))
+        rst=connection.execute(query).fetchall()
+    except:
+        print(now,' get_single_result error. ticker: ',ticker)
+    return rst
+
 def get_lst_result_ordered(count=1):
     now=datetime.now().strftime("%d/%m/%Y %H:%M:%S")
     try:
@@ -111,3 +122,4 @@ def get_lst_result_ordered(count=1):
 #record_ana_rst('nvda',0,0,0,0,0,0)
 #update_ana_results('2406',1,1,1,1,1,1)
 #print(get_ticker('2406'))
+#print(get_single_result_ticker('NVDA'))

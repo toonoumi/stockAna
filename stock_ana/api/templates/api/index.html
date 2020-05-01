@@ -7,7 +7,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta name="description" content="">
     <meta name="author" content="KevinCat">
-    <title>RoboMaster NA</title>
+    <title>10Stock</title>
 
     <link rel="canonical" href="https://getbootstrap.com/docs/4.4/examples/cover/">
 
@@ -33,7 +33,7 @@
         }
         
         .rm-bg {
-            background-image: url("{% static 'image/1565959729402.png.jpeg' %}");
+            //background-image: url("{% static 'image/1565959729402.png.jpeg' %}");
             //background-image: url("{% static 'image/1565959642543.png.jpeg' %}");
             background-repeat: no-repeat;
             background-attachment: fixed;
@@ -66,32 +66,42 @@
     </div>
   </header-->
             <nav class="site-header sticky-top py-1 mb-auto " width=100%>
-                <h3 class="masthead-brand font-weight-light">RoboMaster NA</h3>
+                <h3 class="masthead-brand font-weight-light">10 Stock Weekly</h3>
                 <div class="nav nav-masthead justify-content-center ">
                     <a class="nav-link active font-weight-light" href="#">Home</a>
-                    <a class="nav-link font-weight-light" href="https://www.robomaster.com/en-US">RM Official</a>
-                    <a class="nav-link font-weight-light" href="./rmna_info.html">Sign Up</a>
-                    <a class="nav-link font-weight-light" href="./contact.html">Contact</a>
+                    <a class="nav-link font-weight-light" href="#">Sign In</a>
+                    <a class="nav-link font-weight-light" href="#">Sign Up</a>
+                    <a class="nav-link font-weight-light" href="#">Contact</a>
                 </div>
             </nav>
 
 
             <main role="main" class="inner cover " style="//background-color: rgba(0, 0, 0, 0.5);">
-                <h1 class="cover-heading font-weight-light" style="text-shadow: 2px 2px 3px #000000;">RoboMaster North America</h1>
-                <p class="lead font-weight-lighter" style="text-shadow: 2px 2px 3px #000000;">
-                    A Competitive Robotics Conference for Young Engineers in<br> North America.</p>
-                <p class="lead">
-                    <a href="./rmna_info.html" class="btn btn-lg btn-secondary">Learn more</a>
+                <!--h1 class="cover-heading font-weight-light" style="text-shadow: 2px 2px 3px #000000;">10 Stock</h1-->
+                <!--p class="lead font-weight-lighter" style="text-shadow: 2px 2px 3px #000000;">
+                    A Competitive Robotics Conference for Young Engineers in<br> North America.</p-->
+                <div class="md-form mt-0 mb-3">
+                    <input id="search" class="form-control" type="text" placeholder="Search Ticker" aria-label="Search">
+                </div>
+                <p class="lead mt-5">
+                    <button onclick="singleSearch()" class="btn btn-lg btn-info">Get Rating</button>
                 </p>
             </main>
 
             <footer class="mastfoot mt-auto">
                 <div class="inner">
-                    <p><a href="https://robomasterna.com/">RoboMasterNA 2020</a>, with <a href="https://www.yinnovation.net/">Yinnovation LLC</a>.</p>
+                    <p><a href="#">10 Stock 2020</a></p>
                 </div>
             </footer>
         </div>
     </div>
 </body>
+<script>
+    function singleSearch() {
+        var ticker = document.getElementById("search").value;
+
+        window.location = "/search/" + ticker;
+    }
+</script>
 
 </html>
