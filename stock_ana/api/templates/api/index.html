@@ -65,7 +65,7 @@
       </nav>
     </div>
   </header-->
-            <nav class="site-header sticky-top py-1 mb-auto " width=100%>
+            <nav class="site-header sticky-top py-1 mb-5 " width=100%>
                 <h3 class="masthead-brand font-weight-light">10 Stock Weekly</h3>
                 <div class="nav nav-masthead justify-content-center ">
                     <a class="nav-link active font-weight-light" href="#">Home</a>
@@ -80,7 +80,8 @@
                 <!--h1 class="cover-heading font-weight-light" style="text-shadow: 2px 2px 3px #000000;">10 Stock</h1-->
                 <!--p class="lead font-weight-lighter" style="text-shadow: 2px 2px 3px #000000;">
                     A Competitive Robotics Conference for Young Engineers in<br> North America.</p-->
-                <div class="md-form mt-0 mb-3">
+                <img src="{% static '/image/10stockweekly.png' %}" alt="logo" width=50% height=50%>
+                <div class="md-form  mb-3">
                     <input id="search" class="form-control" type="text" placeholder="Search Ticker" aria-label="Search">
                 </div>
                 <p class="lead mt-5">
@@ -97,10 +98,26 @@
     </div>
 </body>
 <script>
+    var input = document.getElementById("search");
+    input.focus();
+    input.value = "";
+    // Execute a function when the user releases a key on the keyboard
+    input.addEventListener("keypress", function(event) {
+        // Number 13 is the "Enter" key on the keyboard
+        if (event.keyCode === 13) {
+            // Cancel the default action, if needed
+            event.preventDefault();
+            // Trigger the button element with a click
+            singleSearch();
+        }
+    });
+
     function singleSearch() {
         var ticker = document.getElementById("search").value;
+        if (ticker != "") {
+            window.location = "/search/" + ticker;
+        }
 
-        window.location = "/search/" + ticker;
     }
 </script>
 

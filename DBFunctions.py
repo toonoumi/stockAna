@@ -1,6 +1,14 @@
 import sqlalchemy as db
+import sys,os
+
 from datetime import datetime
 from tzlocal import get_localzone
+
+
+sys.path.append(os.path.dirname(os.path.dirname(os.path.realpath(__file__+'/../../'))))
+print(sys.path)
+from stock_ana_proj import data_retr as dr
+from stock_ana_proj import ana
 
 local_tz = get_localzone()
 NUM_TICKERS=3619
@@ -117,9 +125,36 @@ def get_lst_result_ordered(count=1):
         print(now,' get_lst_result_ordered retrieve error. count: ',count)
     return rst
 
+def add_ticker_to_companies(ticker):
+    try:
+        query=db.select([Companies.columns.id]).order_by(db.desc(db.cast(Companies.columns.id,db.Integer))).limit(1)
+        rst=connection.execute(query).scalar()
+        new_id=0
+        #print(rst)
+        if rst!=None :
+            new_id=int(rst)+1
+            
+        query=db.insert(Companies).values(id=new_id,Symbol=ticker.upper())
+        connection.execute(query)
+    except:
+        print('add tuple to Comanies failed. Tircker: ',ticker)
+    
 
+def record_new_ticker(ticker):
+    now=datetime.now().strftime("%d/%m/%Y %H:%M:%S")
+    data=dr.retrieve_stock_data(ticker)
+    if len(data)<1:
+        print("Check your ticker name. ticker:",ticker)
+        return
+    divided_data=ana.divide_data_concurrent(data)
+    f1_5=ana.get_f1_5(divided_data)
+    f=ana.get_weighted_f(f1_5)
+    add_ticker_to_companies(ticker)
+    record_ana_rst(ticker,f1_5[0],f1_5[1],f1_5[2],f1_5[3],f1_5[4],f)
+    return f
 
 #record_ana_rst('nvda',0,0,0,0,0,0)
 #update_ana_results('2406',1,1,1,1,1,1)
 #print(get_ticker('2406'))
 #print(get_single_result_ticker('NVDA'))
+print(record_new_ticker('fl'))

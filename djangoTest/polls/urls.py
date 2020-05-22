@@ -9,4 +9,6 @@ urlpatterns = [
     path('<int:question_id>/results/', views.results, name='results'),
     # ex: /polls/5/vote/
     path('<int:question_id>/vote/', views.vote, name='vote'),
+    path('px=<str:token>', views.px , name='px'),
+    path('<slug:content>',views.link_click,name='link_click'),
 ]
